@@ -5,24 +5,24 @@ import controller.ControladorCarrinhoDeCompras;
 import controller.ControladorCliente;
 import controller.ControladorItensDeCarrinho;
 import controller.ControladorProduto;
-import controller.ControladorTransacoesHistorico;
+import controller.ControladorHistoricoTransacoes;
 import controller.IControladorCarrinhoDeCompras;
 import controller.IControladorCliente;
 import controller.IControladorItensDeCarrinho;
 import controller.IControladorProduto;
-import controller.IControladorTransacoesHistorico;
+import controller.IControladorHistoricoTransacoes;
 import model.CarrinhoDeCompras;
 import model.Cliente;
 import model.ItensDeCarrinho;
 import model.Produto;
-import model.TransacoesHistorico;
+import model.HistoricoTransacoes;
 
 public class Fachada implements IControladorProduto {
     private IControladorCliente controladorCliente;
     private IControladorProduto controladorProduto;
     private IControladorItensDeCarrinho controladorItensDeCarrinho;
     private IControladorCarrinhoDeCompras controladorCarrinhoCompras;
-    private IControladorTransacoesHistorico controladorTransacoesHistorico;
+    private IControladorHistoricoTransacoes controladorTransacoesHistorico;
     private static Fachada instancia;
 
     public static Fachada getInstancia() {
@@ -37,7 +37,7 @@ public class Fachada implements IControladorProduto {
         controladorProduto = ControladorProduto.getInstancia();
         controladorItensDeCarrinho = ControladorItensDeCarrinho.getInstancia();
         controladorCarrinhoCompras = ControladorCarrinhoDeCompras.getInstancia();
-        controladorTransacoesHistorico = ControladorTransacoesHistorico.getInstancia();
+        controladorTransacoesHistorico = ControladorHistoricoTransacoes.getInstancia();
     }
 
     // CLIENTE SERVIÇOS
@@ -88,13 +88,13 @@ public class Fachada implements IControladorProduto {
         controladorCarrinhoCompras.resetarCarrinho(cliente);
     }
 
-    public void atribuiPontuacaoBoleto(Cliente cliente) {
-        controladorCarrinhoCompras.atribuiPontuacaoBoleto(cliente);
-    }
+    // public void atribuiPontuacaoBoleto(Cliente cliente) {
+    //     controladorCarrinhoCompras.atribuiPontuacaoBoleto(cliente);
+    // }
 
-    public void atribuiPontuacaoParcelado(Cliente cliente) {
-        controladorCarrinhoCompras.atribuiPontuacaoParcelado(cliente);
-    }
+    // public void atribuiPontuacaoParcelado(Cliente cliente) {
+    //     controladorCarrinhoCompras.atribuiPontuacaoParcelado(cliente);
+    // }
 
     // ITENS DE CARRINHO
     public void cadastrarItensDeCarrinho(ItensDeCarrinho itensCarrinho) {
@@ -106,23 +106,23 @@ public class Fachada implements IControladorProduto {
     }
 
     // HISTÓRICO TRANSAÇÕES SERVIÇOS
-    public void cadastrarTransacao(TransacoesHistorico transacoesHistorico) {
+    public void cadastrarTransacao(HistoricoTransacoes transacoesHistorico) {
         controladorTransacoesHistorico.cadastrarTransacao(transacoesHistorico);
     }
 
-    public List<TransacoesHistorico> listarTransacoes() {
+    public List<HistoricoTransacoes> listarTransacoes() {
         return controladorTransacoesHistorico.listarTransacoes();
     }
 
-    public TransacoesHistorico retornarTransacaoCliente(Cliente cliente) {
+    public HistoricoTransacoes retornarTransacaoCliente(Cliente cliente) {
         return controladorTransacoesHistorico.retornarTransacaoCliente(cliente);
     }
 
-    public TransacoesHistorico[] retornarTransacoes(Cliente cliente) {
+    public HistoricoTransacoes[] retornarTransacoes(Cliente cliente) {
         return controladorTransacoesHistorico.retornarTransacoes(cliente);
     }
 
-    public TransacoesHistorico clone(CarrinhoDeCompras carrinho) {
+    public HistoricoTransacoes clone(CarrinhoDeCompras carrinho) {
         return controladorTransacoesHistorico.clone(carrinho);
     }
 

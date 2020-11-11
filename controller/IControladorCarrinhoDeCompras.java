@@ -11,10 +11,6 @@ public interface IControladorCarrinhoDeCompras {
 
     public CarrinhoDeCompras retornarCarrinhoCliente(Cliente cliente);
 
-    public void atribuiPontuacaoBoleto(Cliente cliente);
-
-    public void atribuiPontuacaoParcelado(Cliente cliente);
-
     public void resetarCarrinho(Cliente cliente);
 
     public List<CarrinhoDeCompras> listarCarrinhos();

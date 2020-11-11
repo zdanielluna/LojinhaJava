@@ -36,20 +36,6 @@ public class ControladorCarrinhoDeCompras implements IControladorCarrinhoDeCompr
         return null;
     }
 
-    public void atribuiPontuacaoBoleto(Cliente cliente) {
-        CarrinhoDeCompras carrinhoCompras = retornarCarrinhoCliente(cliente);
-        double total = carrinhoCompras.getTotal();
-        carrinhoCompras.setFormaPagamento("Boleto");
-        cliente.setPontuacao((int) (cliente.getPontuacao() + total * 1.5));
-    }
-
-    public void atribuiPontuacaoParcelado(Cliente cliente) {
-        CarrinhoDeCompras carrinho = retornarCarrinhoCliente(cliente);
-        double total = carrinho.getTotal();
-        carrinho.setFormaPagamento("Parcelado");
-        cliente.setPontuacao((int) (cliente.getPontuacao() + total * 1.2));
-    }
-
     public void resetarCarrinho(Cliente cliente) {
         CarrinhoDeCompras carrinho;
         for (int i = 0; i < repositorioCarrinhoDeCompras.listarCarrinhos().size(); i++) {

@@ -2,14 +2,14 @@ package database;
 
 import java.util.ArrayList;
 import java.util.List;
-import model.TransacoesHistorico;
+import model.HistoricoTransacoes;
 
 public class RepositorioTransacoes implements IRepositorioTransacoes {
-    private List<TransacoesHistorico> listaTransacoes;
+    private List<HistoricoTransacoes> listaTransacoes;
     private static RepositorioTransacoes instancia;
 
     private RepositorioTransacoes() {
-        listaTransacoes = new ArrayList<TransacoesHistorico>();
+        listaTransacoes = new ArrayList<HistoricoTransacoes>();
     }
 
     public static RepositorioTransacoes getInstancia() {
@@ -19,11 +19,11 @@ public class RepositorioTransacoes implements IRepositorioTransacoes {
         return instancia;
     }
 
-    public void cadastrarTransacao(TransacoesHistorico transacao) {
+    public void cadastrarTransacao(HistoricoTransacoes transacao) {
         listaTransacoes.add(transacao);
     }
 
-    public List<TransacoesHistorico> listarTransacoes() {
+    public List<HistoricoTransacoes> listarTransacoes() {
         return listaTransacoes;
     }
 

@@ -7,7 +7,12 @@ import model.CarrinhoDeCompras;
 import model.Cliente;
 import model.ItensDeCarrinho;
 import model.Produto;
-import model.TransacoesHistorico;
+import strategy.Boleto;
+import strategy.CalculadorPontuacao;
+import strategy.CartaoCredito;
+import strategy.FormaDePagamento;
+import strategy.TED;
+import model.HistoricoTransacoes;
 
 public class Menus {
     UiProduto uiProduto = new UiProduto();
@@ -138,7 +143,7 @@ public class Menus {
 
     private void telaHistoricoTransacoes(Cliente cliente) {
         System.out.println("\n----- HISTÓRICO DE TRANSAÇÕES -----\n");
-        TransacoesHistorico transacoes[] = fachada.retornarTransacoes(cliente);
+        HistoricoTransacoes transacoes[] = fachada.retornarTransacoes(cliente);
         for (int i = 0; i < transacoes.length; i++) {
             System.out.println(transacoes[i].mostrarTransacao());
         }
@@ -182,15 +187,25 @@ public class Menus {
     private void telaDePagamento(Cliente cliente) {
         int formaDePagamento = 0;
 
-        System.out.println("(1) Boleto | (2) Parcelado");
+        System.out.println("(1) Boleto | (2) Parcelado | (3) TED");
         formaDePagamento = scan.nextInt();
+
+        FormaDePagamento cartaoCredito = new CartaoCredito();
+        FormaDePagamento boleto = new Boleto();
+        FormaDePagamento ted = new TED();
+
+        CalculadorPontuacao calculadorPontuacao = new CalculadorPontuacao();
+        CarrinhoDeCompras carrinho = fachada.retornarCarrinhoCliente(cliente);
 
         switch (formaDePagamento) {
             case 1:
-                fachada.atribuiPontuacaoBoleto(cliente);
+                calculadorPontuacao.realizaCalculo(carrinho, boleto);
                 break;
             case 2:
-                fachada.atribuiPontuacaoParcelado(cliente);
+                calculadorPontuacao.realizaCalculo(carrinho, cartaoCredito);
+                break;
+            case 3:
+                calculadorPontuacao.realizaCalculo(carrinho, ted);
                 break;
         }
         telaConfirmacaoCompra(cliente);
@@ -204,7 +219,7 @@ public class Menus {
             telaCarrinhoCliente(cliente);
 
             CarrinhoDeCompras carrinho = fachada.retornarCarrinhoCliente(cliente);
-            TransacoesHistorico transacao = fachada.clone(carrinho);
+            HistoricoTransacoes transacao = fachada.clone(carrinho);
             fachada.cadastrarTransacao(transacao);
 
             fachada.resetarCarrinho(cliente);
@@ -214,7 +229,6 @@ public class Menus {
             System.err.print("\nSenha incorreta!\n");
             telaDePagamento(cliente);
         }
-
     }
 
 }

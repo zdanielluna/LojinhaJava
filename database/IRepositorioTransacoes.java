@@ -1,12 +1,12 @@
 package database;
 
 import java.util.List;
-import model.TransacoesHistorico;
+import model.HistoricoTransacoes;
 
 public interface IRepositorioTransacoes {
 
-    public List<TransacoesHistorico> listarTransacoes();
+    public List<HistoricoTransacoes> listarTransacoes();
 
-    public void cadastrarTransacao(TransacoesHistorico transacao);
+    public void cadastrarTransacao(HistoricoTransacoes transacao);
 
 }

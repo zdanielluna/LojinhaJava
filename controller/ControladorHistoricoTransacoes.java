@@ -5,32 +5,32 @@ import database.IRepositorioTransacoes;
 import database.RepositorioTransacoes;
 import model.CarrinhoDeCompras;
 import model.Cliente;
-import model.TransacoesHistorico;
+import model.HistoricoTransacoes;
 
-public class ControladorTransacoesHistorico implements IControladorTransacoesHistorico {
+public class ControladorHistoricoTransacoes implements IControladorHistoricoTransacoes {
     private IRepositorioTransacoes repositorioTransacoes;
-    private static ControladorTransacoesHistorico instancia;
+    private static ControladorHistoricoTransacoes instancia;
 
-    private ControladorTransacoesHistorico() {
+    private ControladorHistoricoTransacoes() {
         repositorioTransacoes = RepositorioTransacoes.getInstancia();
     }
 
-    public static ControladorTransacoesHistorico getInstancia() {
+    public static ControladorHistoricoTransacoes getInstancia() {
         if (instancia == null) {
-            instancia = new ControladorTransacoesHistorico();
+            instancia = new ControladorHistoricoTransacoes();
         }
         return instancia;
     }
 
-    public void cadastrarTransacao(TransacoesHistorico transacao) {
+    public void cadastrarTransacao(HistoricoTransacoes transacao) {
         repositorioTransacoes.cadastrarTransacao(transacao);
     }
 
-    public List<TransacoesHistorico> listarTransacoes() {
+    public List<HistoricoTransacoes> listarTransacoes() {
         return repositorioTransacoes.listarTransacoes();
     }
 
-    public TransacoesHistorico retornarTransacaoCliente(Cliente cliente) {
+    public HistoricoTransacoes retornarTransacaoCliente(Cliente cliente) {
         for (int i = 0; i < listarTransacoes().size(); i++) {
             if (listarTransacoes().get(i).getCliente() == cliente) {
                 return listarTransacoes().get(i);
@@ -39,8 +39,8 @@ public class ControladorTransacoesHistorico implements IControladorTransacoesHis
         return null;
     }
 
-    public TransacoesHistorico[] retornarTransacoes(Cliente cliente) {
-        TransacoesHistorico transacoes[] = new TransacoesHistorico[listarTransacoes().size()];
+    public HistoricoTransacoes[] retornarTransacoes(Cliente cliente) {
+        HistoricoTransacoes transacoes[] = new HistoricoTransacoes[listarTransacoes().size()];
         for (int i = 0; i < listarTransacoes().size(); i++) {
             if (listarTransacoes().get(i).getCliente() == cliente) {
                 transacoes[i] = listarTransacoes().get(i);
@@ -49,8 +49,8 @@ public class ControladorTransacoesHistorico implements IControladorTransacoesHis
         return transacoes;
     }
 
-    public TransacoesHistorico clone(CarrinhoDeCompras carrinho) {
-        TransacoesHistorico transacao = new TransacoesHistorico();
+    public HistoricoTransacoes clone(CarrinhoDeCompras carrinho) {
+        HistoricoTransacoes transacao = new HistoricoTransacoes();
         transacao.setCliente(carrinho.getCliente());
 
         for (int i = 0; i < carrinho.getControladorItens().size(); i++) {
